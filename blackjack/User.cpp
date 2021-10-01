@@ -24,3 +24,54 @@ void User::save(string filename) {
 		exit(1);
 	}
 }
+
+void newUser() {
+	string username{};
+	string password{};
+	vector<User> existing_users = loadUsers(filename);
+	bool usernameFree{ false };
+
+	if (existing_users.size() > 0) {
+		while (!usernameFree) {
+			cout << " Enter new username: ";
+			cin >> username;
+
+			for (int i = 0; i < existing_users.size(); i++) {
+				if (existing_users[i].username == username) {
+					cout << " Username taken. Try again." << endl;
+					break;
+				}
+				else if (i == existing_users.size() - 1) {
+					usernameFree = true;
+				}
+			}
+		}
+	}
+
+	cout << " Enter new password: ";
+	cin >> password;
+
+	User new_user(username, password);
+	new_user.save(filename);
+}
+
+vector<User> loadUsers(string filename) {
+	std::ifstream ifile(filename);
+	string line;
+	vector<User> users{};
+
+	if (ifile.is_open()) {
+		while (std::getline(ifile, line)) {
+			if (line.size() > 0) {
+				string username = line.substr(line.find('{'), line.find(':'));
+				string password = line.substr(line.find(':') + 1, line.find('}'));
+				users.push_back(User(username, password));
+			}
+		}
+		ifile.close();
+	}
+	else {
+		std::cout << "Load savefile failed." << std::endl;  // exits on failure to open savefile
+		exit(1);
+	}
+}

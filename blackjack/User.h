@@ -4,8 +4,10 @@
 #include <vector>
 #include <fstream>
 
-using std::string; using std::count; using std::cin;
-using std::vector;
+using std::string; using std::cout; using std::cin;
+using std::vector; using std::endl;
+
+string filename = "users.txt";
 
 struct User {
 	string password{};
@@ -19,3 +21,4 @@ struct User {
 
 void newUser();
 void login();
+vector<User> loadUsers(string);
