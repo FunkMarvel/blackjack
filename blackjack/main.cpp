@@ -1,5 +1,5 @@
 // Compulsory 2, Anders P. Åsbø
-#include <iostream>
+#include "blackjackLib.h"
 
 int main() {
 
