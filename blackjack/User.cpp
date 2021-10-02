@@ -137,7 +137,7 @@ User login() {
 		cin >> password;
 
 		if (current_user.password == password) {
-			cout << " Welcome to the Lucky 38!" << endl;
+			cout << " Log in successful!" << endl;
 			system("pause");
 			return current_user;
 		}

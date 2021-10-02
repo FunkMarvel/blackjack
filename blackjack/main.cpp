@@ -4,6 +4,9 @@
 int main() {
 	User current_user{};
 	mainMenu(current_user);
+	system("cls");
+	cout << " Welcome " << current_user.username << ", to the Lucky 38!" << endl;
+
 	return 0;
 }
 
