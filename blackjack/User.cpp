@@ -1,4 +1,4 @@
-#include "User.h"
+#include "user.h"
 
 string database = "users.txt";
 

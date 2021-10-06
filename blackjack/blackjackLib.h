@@ -1,5 +1,5 @@
 #pragma once
-#include "User.h"
+#include "user.h"
 
 void clearCin();
 void mainMenu(User&);
