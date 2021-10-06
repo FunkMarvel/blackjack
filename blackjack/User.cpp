@@ -16,6 +16,14 @@ std::ostream& operator <<(std::ostream &os, User some_user) {
 	return os;
 }
 
+string User::getUsername() {
+	return username;
+}
+
+string User::getPassword() {
+	return password;
+}
+
 void User::save(string filename) {
 	std::ofstream ofile(filename, std::ios::app);
 	if (ofile.is_open()) {
@@ -40,7 +48,7 @@ User newUser() {
 			cin >> username;
 
 			for (int i = 0; i < existing_users.size(); i++) {
-				if (existing_users[i].username == username) {
+				if (existing_users[i].getUsername() == username) {
 					cout << " Username taken. Try again." << endl;
 					break;
 				}
@@ -119,7 +127,7 @@ User login() {
 		cin >> username;
 
 		for (user_number = 0; user_number < existing_users.size(); user_number++) {
-			if (existing_users[user_number].username == username) {
+			if (existing_users[user_number].getUsername() == username) {
 				user_exists = true;
 				current_user = existing_users[user_number];
 				break;
@@ -136,7 +144,7 @@ User login() {
 		cout << " Enter password: ";
 		cin >> password;
 
-		if (current_user.password == password) {
+		if (current_user.getPassword() == password) {
 			cout << " Log in successful!" << endl;
 			system("pause");
 			return current_user;

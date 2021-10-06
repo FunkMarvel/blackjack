@@ -7,12 +7,16 @@
 using std::string; using std::cout; using std::cin;
 using std::vector; using std::endl;
 
-struct User {
+class User {
+private:
 	string password{};
 	string username{};
 
+public:
 	User();
 	User(string, string);
+	string getUsername();
+	string getPassword();
 	void save(string);
 	friend std::ostream& operator <<(std::ostream&, User);
 };

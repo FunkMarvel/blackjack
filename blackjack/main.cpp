@@ -5,7 +5,7 @@ int main() {
 	User current_user{};
 	mainMenu(current_user);
 	system("cls");
-	cout << " Welcome " << current_user.username << ", to the Lucky 38!" << endl;
+	cout << " Welcome " << current_user.getUsername() << ", to the Lucky 38!" << endl;
 
 	return 0;
 }
@@ -32,4 +32,11 @@ void mainMenu(User &current_user) {
 			break;
 		}
 	}
+}
+
+void blackjac(User &current_user) {
+	vector<Card> deck{ createDeck() };
+	shuffleDeck(deck);
+
+
 }
