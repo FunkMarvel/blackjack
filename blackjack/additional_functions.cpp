@@ -1,4 +1,4 @@
-#include "blackjackLib.h"
+#include "casino.h"
 
 void clearCin() {
     // Function that clears cin buffer.

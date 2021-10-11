@@ -33,7 +33,7 @@ vector<Card> createDeck() {
 	vector<Card> deck{};
 
 	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 13; j++) {
+		for (int j = 1; j <= 13; j++) {
 			deck.push_back(Card(i, j));
 		}
 	}

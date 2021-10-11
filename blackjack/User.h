@@ -1,11 +1,5 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <vector>
-#include <fstream>
-
-using std::string; using std::cout; using std::cin;
-using std::vector; using std::endl;
+#include "card.h"
 
 class User {
 private:
@@ -13,11 +7,15 @@ private:
 	string username{};
 
 public:
+	vector<Card> hand{};
+	int hand_total{};
+
 	User();
 	User(string, string);
 	string getUsername();
 	string getPassword();
 	void save(string);
+	void addToHand(Card);
 	friend std::ostream& operator <<(std::ostream&, User);
 };
 

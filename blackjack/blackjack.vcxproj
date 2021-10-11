@@ -145,7 +145,7 @@
     <ClCompile Include="user.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="blackjackLib.h" />
+    <ClInclude Include="casino.h" />
     <ClInclude Include="card.h" />
     <ClInclude Include="user.h" />
   </ItemGroup>

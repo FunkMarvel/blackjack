@@ -36,6 +36,35 @@ void User::save(string filename) {
 	}
 }
 
+void User::addToHand(Card new_card) {
+	hand.push_back(new_card);
+	if (new_card.value == 1) {
+		while (true) {
+			int choice{};
+			cout << " Count ace as 1 or 11? : ";
+			cin >> choice;
+			switch (choice) {
+			case 1:
+				hand_total += 1;
+				return;
+			case 11:
+				hand_total += 11;
+				return;
+			default:
+				cout << "\r";
+				//cout.flush();
+				break;
+			}
+		}
+	}
+	else if (new_card.value > 10) {
+		hand_total += 10;
+	}
+	else {
+		hand_total += new_card.value;
+	}
+}
+
 User newUser() {
 	string username{};
 	string password{};

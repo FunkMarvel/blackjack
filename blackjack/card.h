@@ -1,5 +1,11 @@
 #pragma once
-#include "user.h"
+#include <iostream>
+#include <string>
+#include <vector>
+#include <fstream>
+
+using std::string; using std::cout; using std::cin;
+using std::vector; using std::endl;
 
 struct Card {
 	int colour{};
