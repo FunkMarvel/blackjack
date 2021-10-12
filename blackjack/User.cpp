@@ -1,10 +1,10 @@
-#include "user.h"
+#include "casino.h"
 
 string database = "users.txt";
 
 User::User() {
-	username = "";
-	password = "";
+	username = "House is playing";
+	password = "HousePass";
 }
 
 User::User(string new_username, string new_password) {
@@ -38,11 +38,14 @@ void User::save(string filename) {
 
 void User::addToHand(Card new_card) {
 	hand.push_back(new_card);
-	if (new_card.value == 1) {
+	if (new_card.value == 1 && username != "House is playing") {
 		while (true) {
 			int choice{};
+			system("cls");
+			printHand();
 			cout << " Count ace as 1 or 11? : ";
 			cin >> choice;
+			clearCin();
 			switch (choice) {
 			case 1:
 				hand_total += 1;
@@ -51,10 +54,16 @@ void User::addToHand(Card new_card) {
 				hand_total += 11;
 				return;
 			default:
-				cout << "\r";
-				//cout.flush();
 				break;
 			}
+		}
+	}
+	else if (new_card.value == 1 && username == "House is playing") {
+		if ((hand_total + 11) > 21) {
+			hand_total += 1;
+		}
+		else {
+			hand_total += 11;
 		}
 	}
 	else if (new_card.value > 10) {
@@ -63,6 +72,18 @@ void User::addToHand(Card new_card) {
 	else {
 		hand_total += new_card.value;
 	}
+}
+
+const void User::printHand() {
+	cout << " Most recently drawn card: " << hand[hand.size() - 1] << endl;
+	cout << " Current hand: ";
+	for (int i = 0; i < hand.size(); i++) {
+		if ((i - 1) % 5 == 4) {
+			cout << endl << "               ";
+		}
+		cout << hand[i] << ", ";
+	}
+	cout << endl << " Current hand value: " << hand_total << endl;
 }
 
 User newUser() {
