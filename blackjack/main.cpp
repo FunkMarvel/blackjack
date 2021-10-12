@@ -36,34 +36,56 @@ void mainMenu(User &current_user) {
 }
 
 void blackjack(User &current_user) {
+	User house{};
 	int num_cards_pulled{};
 	vector<Card> deck{ createDeck() };
 	shuffleDeck(deck);
 
+	if (!userDraws(current_user, deck, num_cards_pulled)) {
+		cout << " Game Over!" << endl;
+	}
+	else {
+		houseDraws(house, current_user, deck, num_cards_pulled);
+	}
+}
+
+bool userDraws(User &current_user, vector<Card> &deck, int &num_cards_pulled) {
 	while (true) {
 		char user_answer{};
-		cout << " Draw a card? y/n: ";
+		cout << endl << " Draw a card? y/n: ";
 		cin >> user_answer;
 		system("cls");
 
-		cout << " Current hand: ";
-		for (int i = 0; i < current_user.hand.size(); i++) {
-			if ((i - 1) % 5 == 4) {
-				cout << endl << "               ";
-			}
-			cout << current_user.hand[i] << ", ";
-		}
-		cout << endl << " Current hand value: " << current_user.hand_total << endl;
-
 		switch (tolower(user_answer)) {
 		case 'y':
-			cout << " Drawn card: " << deck[num_cards_pulled] << endl;
 			current_user.addToHand(deck[num_cards_pulled++]);
+			system("cls");
+			current_user.printHand();
 			break;
 		case 'n':
 			cout << " " << endl;
-			return;
+			return true;
 		default:
+			break;
+		}
+		if (current_user.hand_total > 21) {
+			system("cls");
+			cout << endl << " Total score exceeds 21. You lose!" << endl;
+			return false;
+		}
+	}
+}
+
+void houseDraws(User &house, User &current_user, vector<Card>& deck, int& num_cards_pulled) {
+
+	while (num_cards_pulled < deck.size()) {
+		int temp_total{ house.hand_total };
+		house.addToHand(deck[num_cards_pulled++]);
+
+		if (house.hand_total > 21) {
+			house.hand_total = temp_total;
+			house.hand.pop_back();
+			num_cards_pulled--;
 			break;
 		}
 	}
