@@ -1,7 +1,9 @@
 #pragma once
-#include "user.h"
-#include "card.h"
+// main header for casino library and Compulsory 2 project.
 
+#include "user.h"  // includes both card.h and user.h.
+
+// definitions of functions in casino.cpp:
 void clearCin();
 void casino();
 void mainMenu(User&);
