@@ -1,4 +1,4 @@
-#include "casino.h"  // includes declarations from user.h
+#include "casino.h"  // includes declaration of User class from user.h
 
 string database = "users.txt";  // filename of file storing usernames and passwords.
 

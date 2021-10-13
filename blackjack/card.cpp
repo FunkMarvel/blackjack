@@ -1,4 +1,4 @@
-#include "casino.h"  // includes forward declarations from card.h
+#include "casino.h"  // includes declaration of Card struct from card.h
 #include <random>
 #include <algorithm>
 
