@@ -2,11 +2,31 @@
 #include "casino.h"
 
 int main() {
-	User current_user{};
-	mainMenu(current_user);
-	system("cls");
-	cout << " Welcome " << current_user.getUsername() << ", to the Lucky 38!" << endl;
-	blackjack(current_user);
+	while (true) {
+		User current_user{};
+		mainMenu(current_user);
+
+		User house{};
+		vector<Card> deck{ createDeck() };
+
+		system("cls");
+		cout << " Welcome " << current_user.getUsername() << ", to the Lucky 38!" << endl;
+
+		char user_answer{ 'y' };
+		while (true) {
+			if (tolower(user_answer) == 'n') {
+				break;
+			}
+			else if (tolower(user_answer) == 'y') {
+				house.clearHand();
+				current_user.clearHand();
+				blackjack(house, current_user, deck);
+			}
+			cout << " Play again? y/n: ";
+			cin >> user_answer;
+			system("cls");
+		}
+	}
 
 	return 0;
 }
@@ -19,6 +39,7 @@ void mainMenu(User &current_user) {
 		cout << " Welcome to the Lucky 38!" << endl;
 		cout << " 1. Log in" << endl;
 		cout << " 2. New user" << endl;
+		cout << " 3. Exit (q)" << endl;
 		cout << " Select menu item: ";
 		cin >> user_selection;
 
@@ -29,23 +50,41 @@ void mainMenu(User &current_user) {
 		case '2': case 'n':
 			current_user = newUser();
 			return;
+		case 'q': case '3':
+			exit(0);
 		default:
 			break;
 		}
 	}
 }
 
-void blackjack(User &current_user) {
-	User house{};
+void blackjack(User &house, User &current_user, vector<Card> &deck) {
 	int num_cards_pulled{};
-	vector<Card> deck{ createDeck() };
 	shuffleDeck(deck);
+	
 
 	if (!userDraws(current_user, deck, num_cards_pulled)) {
-		cout << " Game Over!" << endl;
+		cout << " House wins!" << endl;
+		return;
 	}
 	else {
 		houseDraws(house, current_user, deck, num_cards_pulled);
+	}
+
+	cout << " " << current_user.getUsername() << "'s hand:" << endl;
+	current_user.printHand();
+	cout << endl;
+	cout << " House's hand:" << endl;
+	house.printHand();
+	cout << endl;
+	if ((house.hand_total < current_user.hand_total || house.hand_total > 21) && current_user.hand_total <= 21) {
+		cout << " You win!" << endl;
+	}
+	else if (house.hand_total > current_user.hand_total && house.hand_total <= 21) {
+		cout << " House wins!" << endl;
+	}
+	else {
+		cout << " It's a draw!" << endl;
 	}
 }
 
@@ -63,14 +102,13 @@ bool userDraws(User &current_user, vector<Card> &deck, int &num_cards_pulled) {
 			current_user.printHand();
 			break;
 		case 'n':
-			cout << " " << endl;
 			return true;
 		default:
 			break;
 		}
 		if (current_user.hand_total > 21) {
 			system("cls");
-			cout << endl << " Total score exceeds 21. You lose!" << endl;
+			current_user.printHand();
 			return false;
 		}
 	}
@@ -82,11 +120,15 @@ void houseDraws(User &house, User &current_user, vector<Card>& deck, int& num_ca
 		int temp_total{ house.hand_total };
 		house.addToHand(deck[num_cards_pulled++]);
 
-		if (house.hand_total > 21) {
+		if (house.hand_total > current_user.hand_total) {
+			break;
+		}
+
+		/*if (house.hand_total > 21) {
 			house.hand_total = temp_total;
 			house.hand.pop_back();
 			num_cards_pulled--;
 			break;
-		}
+		}*/
 	}
 }
