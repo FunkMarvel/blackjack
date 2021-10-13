@@ -45,7 +45,7 @@ void User::addToHand(Card new_card) {
 			int choice{};
 			system("cls");
 			printHand();
-			cout << " Count ace as 1 or 11? : ";
+			cout << endl << " Count ace as 1 or 11? : ";
 			cin >> choice;
 			clearCin();
 			switch (choice) {

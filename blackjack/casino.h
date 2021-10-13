@@ -3,6 +3,7 @@
 #include "card.h"
 
 void clearCin();
+void casino();
 void mainMenu(User&);
 void blackjack(User&, User&, vector<Card>&, int&);
 bool userDraws(User&, vector<Card>&, int&);
