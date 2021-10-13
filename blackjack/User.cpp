@@ -93,6 +93,7 @@ const void User::printHand() {
 		cout << hand[i] << ", ";
 	}
 	cout << endl << " Current hand value: " << hand_total << endl;
+	cout << " Current cash: $" << cash << endl;
 }
 
 User newUser() {
