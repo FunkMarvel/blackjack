@@ -9,6 +9,7 @@ private:
 public:
 	vector<Card> hand{};
 	int hand_total{};
+	int cash{ 100 };
 
 	User();
 	User(string, string);

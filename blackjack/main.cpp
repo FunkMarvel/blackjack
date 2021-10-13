@@ -2,12 +2,12 @@
 #include "casino.h"
 
 int main() {
-	while (true) {
-		User current_user{};
-		mainMenu(current_user);
+	User current_user{};
+	User house{};
+	vector<Card> deck{ createDeck() };
 
-		User house{};
-		vector<Card> deck{ createDeck() };
+	while (true) {
+		mainMenu(current_user);
 
 		system("cls");
 		cout << " Welcome " << current_user.getUsername() << ", to the Lucky 38!" << endl;
@@ -71,12 +71,14 @@ void blackjack(User &house, User &current_user, vector<Card> &deck) {
 		houseDraws(house, current_user, deck, num_cards_pulled);
 	}
 
-	cout << " " << current_user.getUsername() << "'s hand:" << endl;
+	cout << " " << current_user.getUsername() << ":" << endl;
 	current_user.printHand();
 	cout << endl;
-	cout << " House's hand:" << endl;
+
+	cout << " House:" << endl;
 	house.printHand();
 	cout << endl;
+
 	if ((house.hand_total < current_user.hand_total || house.hand_total > 21) && current_user.hand_total <= 21) {
 		cout << " You win!" << endl;
 	}
@@ -117,7 +119,7 @@ bool userDraws(User &current_user, vector<Card> &deck, int &num_cards_pulled) {
 void houseDraws(User &house, User &current_user, vector<Card>& deck, int& num_cards_pulled) {
 
 	while (num_cards_pulled < deck.size()) {
-		int temp_total{ house.hand_total };
+		// int temp_total{ house.hand_total };
 		house.addToHand(deck[num_cards_pulled++]);
 
 		if (house.hand_total > current_user.hand_total) {

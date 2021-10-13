@@ -5,10 +5,12 @@ string database = "users.txt";
 User::User() {
 	username = "House is playing";
 	password = "HousePass";
+	cash = 100;
 }
 
 User::User(string new_username, string new_password) {
 	username = new_username; password = new_password;
+	cash = 100;
 }
 
 std::ostream& operator <<(std::ostream &os, User some_user) {
@@ -81,7 +83,8 @@ void User::clearHand() {
 }
 
 const void User::printHand() {
-	cout << " Most recently drawn card: " << hand[hand.size() - 1] << endl;
+	if (hand.size() > 0) cout << " Most recently drawn card: " << hand[hand.size() - 1] << endl;
+
 	cout << " Current hand: ";
 	for (int i = 0; i < hand.size(); i++) {
 		if ((i - 1) % 5 == 4) {
@@ -100,6 +103,7 @@ User newUser() {
 
 	if (existing_users.size() > 0) {
 		while (!usernameFree) {
+			clearCin();
 			cout << " Enter new username, no whitespace allowed: ";
 			cin >> username;
 
@@ -108,7 +112,7 @@ User newUser() {
 					cout << " Username taken. Try again." << endl;
 					break;
 				}
-				else if (i == existing_users.size()) {
+				else if (i == existing_users.size()-1) {
 					usernameFree = true;
 				}
 			}
