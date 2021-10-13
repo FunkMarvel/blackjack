@@ -16,6 +16,7 @@ public:
 	string getPassword();
 	void save(string);
 	void addToHand(Card);
+	void clearHand();
 	const void printHand();
 	friend std::ostream& operator <<(std::ostream&, User);
 };

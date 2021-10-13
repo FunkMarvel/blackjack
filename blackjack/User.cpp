@@ -74,6 +74,12 @@ void User::addToHand(Card new_card) {
 	}
 }
 
+void User::clearHand() {
+	hand.clear();
+	hand.shrink_to_fit();
+	hand_total = 0;
+}
+
 const void User::printHand() {
 	cout << " Most recently drawn card: " << hand[hand.size() - 1] << endl;
 	cout << " Current hand: ";
